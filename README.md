@@ -6,4 +6,5 @@ Student registration system
 
 - Student/group management
 - Import and export from/to CSV/Excel
-- Check and review attendance
+- Check, edit and and review attendance
+- Save attendance to PDF
