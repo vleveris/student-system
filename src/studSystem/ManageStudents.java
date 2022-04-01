@@ -30,6 +30,7 @@ public class ManageStudents extends JFrame implements WindowFocusListener, Actio
         getContentPane().add(content);
         JLabel listTitle = new JLabel("Students:");
         JScrollPane scroll = new JScrollPane(list);
+        listTitle.setLabelFor(scroll);
         setList();
         add.addActionListener(this);
         remove.addActionListener(this);

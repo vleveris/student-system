@@ -31,6 +31,7 @@ public class ManageGroups extends JFrame implements WindowFocusListener {
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         table.setBounds(20, 20, 180, 180);
         scroll.setBounds(20, 20, 180, 180);
+        listTitle.setLabelFor(scroll);
         content.add(listTitle);
         content.add(scroll);
         JButton edit = new JButton("Edit selected group...");

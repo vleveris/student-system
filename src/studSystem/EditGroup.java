@@ -25,27 +25,28 @@ public class EditGroup extends JDialog {
         setTitle("Edit group");
         JPanel content = new JPanel();
         getContentPane().add(content);
-        JLabel label = new JLabel("Title:");
+        JLabel titleLabel = new JLabel("Title:");
         setList();
-        JTextField title = new JTextField(20);
-        title.setDocument(new MaxLengthLimit());
-        title.setText(group.getTitle());
+        JTextField titleField = new JTextField(20);
+        titleLabel.setLabelFor(titleField);
+        titleField.setDocument(new MaxLengthLimit());
+        titleField.setText(group.getTitle());
         JButton save = new JButton("Save");
         save.addActionListener(saveE -> {
-            if (title.getText().length() == 0)
+            if (titleField.getText().length() == 0)
                 JOptionPane.showMessageDialog(this, "Title field cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
             else {
-                if (group.getTitle().equals(title.getText())) {
+                if (group.getTitle().equals(titleField.getText())) {
                 } else {
-                    if (Lists.groupExists(title.getText()))
+                    if (Lists.groupExists(titleField.getText()))
                         JOptionPane.showMessageDialog(this, "This group already exists", "Error", JOptionPane.ERROR_MESSAGE);
                     else {
                         String oldTitle = group.getTitle();
-                        group.setTitle(title.getText());
+                        group.setTitle(titleField.getText());
                         ArrayList<Student> students = Lists.getStudents();
                         for (Student student : students)
                             if (student.getGroup().equals(oldTitle))
-                                student.setGroup(title.getText());
+                                student.setGroup(titleField.getText());
                     }
                 }
                 for (Student groupStudent : groupStudents)
@@ -58,6 +59,7 @@ public class EditGroup extends JDialog {
         });
         JLabel listTitle = new JLabel("Group students");
         JList<String> list = new JList<String>(listModel);
+        listTitle.setLabelFor(list);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scroll = new JScrollPane(list);
         JButton add = new JButton("Add new student...");
@@ -90,8 +92,8 @@ public class EditGroup extends JDialog {
         JScrollPane datesScroll = new JScrollPane(dateList);
         JButton close = new JButton("Close");
         close.addActionListener(closeE -> dispose());
-        content.add(label);
-        content.add(title);
+        content.add(titleLabel);
+        content.add(titleField);
         content.add(listTitle);
         content.add(scroll);
         content.add(add);

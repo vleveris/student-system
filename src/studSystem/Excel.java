@@ -12,15 +12,15 @@ import java.util.ArrayList;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Excel {
-    private final String fname;
+    private final String fileName;
 
-    public Excel(String fname) {
-        this.fname = fname;
+    public Excel(String fileName) {
+        this.fileName = fileName;
     }
 
     public void importFromXLSX() {
         try {
-            FileInputStream file = new FileInputStream(fname);
+            FileInputStream file = new FileInputStream(fileName);
             Workbook workbook = new XSSFWorkbook(file);
             Sheet sheet = workbook.getSheetAt(0);
             for (Row row : sheet) {
@@ -45,7 +45,7 @@ public class Excel {
 
     public void importFromXLS() {
         try {
-            FileInputStream file = new FileInputStream(fname);
+            FileInputStream file = new FileInputStream(fileName);
             Workbook workbook = new HSSFWorkbook(file);
             Sheet sheet = workbook.getSheetAt(0);
             for (Row row : sheet) {
@@ -92,7 +92,7 @@ public class Excel {
             }
         }
         try {
-            FileOutputStream outputStream = new FileOutputStream(fname);
+            FileOutputStream outputStream = new FileOutputStream(fileName);
             workbook.write(outputStream);
             workbook.close();
             outputStream.close();
@@ -125,7 +125,7 @@ public class Excel {
             }
         }
         try {
-            FileOutputStream outputStream = new FileOutputStream(fname);
+            FileOutputStream outputStream = new FileOutputStream(fileName);
             workbook.write(outputStream);
             workbook.close();
         } catch (Exception e) {

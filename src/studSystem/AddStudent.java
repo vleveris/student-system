@@ -39,19 +39,22 @@ public class AddStudent extends JDialog implements ActionListener, WindowFocusLi
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         JPanel content = new JPanel();
         getContentPane().add(content);
-        JLabel nameLabel = new JLabel("First name:");
+        JLabel firstNameLabel = new JLabel("First name:");
+        firstNameLabel.setLabelFor(firstNameField);
         firstNameField.setDocument(new MaxLengthLimit());
-        JLabel sernameLabel = new JLabel("Last name:");
+        JLabel lastNameLabel = new JLabel("Last name:");
+        lastNameLabel.setLabelFor(lastNameField);
         lastNameField.setDocument(new MaxLengthLimit());
-        JLabel chooseGroup = new JLabel("Choose group:");
+        JLabel chooseGroupLabel = new JLabel("Choose group:");
         add.addActionListener(this);
         cancel.addActionListener(this);
-        content.add(nameLabel);
+        content.add(firstNameLabel);
         content.add(firstNameField);
-        content.add(sernameLabel);
+        content.add(lastNameLabel);
         content.add(lastNameField);
+        chooseGroupLabel.setLabelFor(groupBox);
         if (needsComboBox) {
-            content.add(chooseGroup);
+            content.add(chooseGroupLabel);
             groupBox.setModel(comboBoxModel);
             content.add(groupBox);
         }

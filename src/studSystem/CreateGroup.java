@@ -15,8 +15,9 @@ public class CreateGroup extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         JPanel content = new JPanel();
         getContentPane().add(content);
-        JLabel label = new JLabel("Enter title (max. " + Lists.maxNameSize + " symbols):");
+        JLabel titleLabel = new JLabel("Enter title (max. " + Lists.maxNameSize + " symbols):");
         JTextField title = new JTextField();
+        titleLabel.setLabelFor(title);
         title.setDocument(new MaxLengthLimit());
         title.setText("New group");
         title.selectAll();
@@ -34,7 +35,7 @@ public class CreateGroup extends JDialog {
                 dispose();
             }
         });
-        content.add(label);
+        content.add(titleLabel);
         content.add(title);
         content.add(confirm);
         setVisible(true);

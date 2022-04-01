@@ -43,7 +43,13 @@ public class ShowAttendance extends JFrame implements ActionListener, ItemListen
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("View attendance");
         JPanel content = new JPanel();
+        singleLabel.setLabelFor(singleDate);
+        fromLabel.setLabelFor(fromDate);
+        toLabel.setLabelFor(toDate);
         getContentPane().add(content);
+        singleLabel.setLabelFor(singleDate);
+        fromLabel.setLabelFor(fromDate);
+        toLabel.setLabelFor(toDate);
         JLabel tableTitle = new JLabel("Filtered students:");
         model = (DefaultTableModel) table.getModel();
         model.addColumn("First name");
@@ -52,10 +58,12 @@ public class ShowAttendance extends JFrame implements ActionListener, ItemListen
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setFillsViewportHeight(true);
         JScrollPane scroll = new JScrollPane(table);
+        tableTitle.setLabelFor(scroll);
         scroll.setViewportView(table);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         table.setBounds(20, 20, 200, 200);
         scroll.setBounds(20, 20, 200, 200);
+        tableTitle.setLabelFor(scroll);
         ButtonGroup group = new ButtonGroup();
         group.add(single);
         group.add(interval);
@@ -121,8 +129,7 @@ public class ShowAttendance extends JFrame implements ActionListener, ItemListen
         if (e.getSource() == generate) {
             if (single.isSelected()) {
                 if (checkDate(singleDate.getText())) {
-                }
-                else {
+                } else {
                     for (int i = 0; i < model.getRowCount(); i++)
                         model.removeRow(i);
                     for (int i = 0; i < Lists.getStudents().size(); i++)

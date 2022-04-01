@@ -57,12 +57,12 @@ public class MainWindow extends JFrame {
         fc.setDialogTitle("Choose student file:");
         int val = fc.showOpenDialog(this);
         if (val == JFileChooser.APPROVE_OPTION) {
-            String fname = fc.getSelectedFile().toString();
-            String extension = fname.substring(fname.indexOf('.') + 1).toLowerCase();
+            String fileName = fc.getSelectedFile().toString();
+            String extension = fileName.substring(fileName.indexOf('.') + 1).toLowerCase();
             switch (extension) {
-                case "csv" -> new CSV(fname).importFromCSV();
-                case "xlsx" -> new Excel(fname).importFromXLSX();
-                case "xls" -> new Excel(fname).importFromXLS();
+                case "csv" -> new CSV(fileName).importFromCSV();
+                case "xlsx" -> new Excel(fileName).importFromXLSX();
+                case "xls" -> new Excel(fileName).importFromXLS();
                 default -> JOptionPane.showMessageDialog(this, "File format is not acceptable", "Import error", JOptionPane.ERROR_MESSAGE);
             }
         } else
@@ -73,12 +73,12 @@ public class MainWindow extends JFrame {
         fc.setDialogTitle("Choose file to save students:");
         int val = fc.showSaveDialog(this);
         if (val == JFileChooser.APPROVE_OPTION) {
-            String fname = fc.getSelectedFile().toString();
-            String extension = fname.substring(fname.indexOf('.') + 1).toLowerCase();
+            String fileName = fc.getSelectedFile().toString();
+            String extension = fileName.substring(fileName.indexOf('.') + 1).toLowerCase();
             switch (extension) {
-                case "csv" -> new CSV(fname).export2CSV();
-                case "xlsx" -> new Excel(fname).export2XLSX();
-                case "xls" -> new Excel(fname).export2XLS();
+                case "csv" -> new CSV(fileName).export2CSV();
+                case "xlsx" -> new Excel(fileName).export2XLSX();
+                case "xls" -> new Excel(fileName).export2XLS();
                 default -> JOptionPane.showMessageDialog(this, "File format is not acceptable", "Export error", JOptionPane.ERROR_MESSAGE);
             }
         } else

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -32,13 +33,16 @@ public class EditStudent extends JDialog implements ActionListener {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         JPanel content = new JPanel();
         getContentPane().add(content);
-        JLabel name = new JLabel("First name:");
+        JLabel firstNameLabel = new JLabel("First name:");
+        firstNameLabel.setLabelFor(firstNameField);
         firstNameField.setDocument(new MaxLengthLimit());
         firstNameField.setText(student.getFirstName());
-        JLabel sername = new JLabel("Last name:");
+        JLabel lastNameLabel = new JLabel("Last name:");
+        lastNameLabel.setLabelFor(lastNameField);
         lastNameField.setDocument(new MaxLengthLimit());
         lastNameField.setText(student.getLastName());
         JLabel groupLabel = new JLabel("Group:");
+        groupLabel.setLabelFor(groups);
         for (int i = 0; i < Lists.getGroups().size(); i++)
             groups.addItem(Lists.getGroups().get(i).getTitle());
         groups.setSelectedItem(student.getGroup());
@@ -55,9 +59,9 @@ public class EditStudent extends JDialog implements ActionListener {
         dateList.setListData(dateItems);
         JScrollPane datesScroll = new JScrollPane(dateList);
         cancel.addActionListener(this);
-        content.add(name);
+        content.add(firstNameLabel);
         content.add(firstNameField);
-        content.add(sername);
+        content.add(lastNameLabel);
         content.add(lastNameField);
         content.add(groupLabel);
         content.add(groups);
@@ -72,16 +76,16 @@ public class EditStudent extends JDialog implements ActionListener {
         if (e.getSource() == save) {
             if (checkField(firstNameField)) return;
             if (checkField(lastNameField)) return;
-            if (groups.getSelectedItem().toString().length() == 0) {
+            if (Objects.requireNonNull(groups.getSelectedItem()).toString().length() == 0) {
                 showMessageDialog(this, "No group selected", "Selection error", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            String newName = firstNameField.getText();
-            String newSername = lastNameField.getText();
+            String newFirstName = firstNameField.getText();
+            String newLastName = lastNameField.getText();
             String newGroup = groups.getSelectedItem().toString();
-            if (student.getFirstName().equals(newName) && student.getLastName().equals(newSername) && student.getGroup().equals(newGroup)) {
+            if (student.getFirstName().equals(newFirstName) && student.getLastName().equals(newLastName) && student.getGroup().equals(newGroup)) {
             } else {
-                Student changed = new Student(newName, newSername, newGroup);
+                Student changed = new Student(newFirstName, newLastName, newGroup);
                 if (Lists.studentExists(changed)) {
                     showMessageDialog(this, "This name is set for another student", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -91,8 +95,8 @@ public class EditStudent extends JDialog implements ActionListener {
                     Lists.getGroups().get(Lists.findGroupByTitle(newGroup)).addStudent(student);
                     student.setGroup(newGroup);
                 }
-                Lists.getStudents().get(Lists.findStudentByName(student)).setFirstName(newName);
-                Lists.getStudents().get(Lists.findStudentByName(student)).setLastName(newSername);
+                Lists.getStudents().get(Lists.findStudentByName(student)).setFirstName(newFirstName);
+                Lists.getStudents().get(Lists.findStudentByName(student)).setLastName(newLastName);
             }
             for (int i = 0; i < dates.size(); i++)
                 if (dateItems[i].isSelected())

@@ -33,6 +33,7 @@ public class AddDates extends JDialog implements WindowFocusListener, ActionList
         JPanel content = new JPanel();
         getContentPane().add(content);
         JLabel listTitle = new JLabel("Dates:");
+        listTitle.setLabelFor(listTitle);
         setList();
         JScrollPane scroll = new JScrollPane(list);
         ButtonGroup group = new ButtonGroup();
@@ -44,8 +45,10 @@ public class AddDates extends JDialog implements WindowFocusListener, ActionList
         single.setActionCommand("single");
         interval.setActionCommand("interval");
         fromLabel.setVisible(false);
+        fromLabel.setLabelFor(fromDate);
         fromDate.setVisible(false);
         toLabel.setVisible(false);
+        toLabel.setLabelFor(toDate);
         toDate.setVisible(false);
         set.addActionListener(this);
         close.addActionListener(this);
@@ -53,6 +56,7 @@ public class AddDates extends JDialog implements WindowFocusListener, ActionList
         content.add(scroll);
         content.add(single);
         content.add(interval);
+        singleLabel.setLabelFor(singleDate);
         content.add(singleLabel);
         content.add(singleDate);
         content.add(fromLabel);

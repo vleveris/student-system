@@ -12,10 +12,10 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class CSV {
     private static final char defaultSeparator = ';';
-    private final String fname;
+    private final String fileName;
 
-    public CSV(String fname) {
-        this.fname = fname;
+    public CSV(String fileName) {
+        this.fileName = fileName;
     }
 
     public static ArrayList<String> parseLine(String cvsLine) {
@@ -24,12 +24,12 @@ public class CSV {
             return null;
         }
 
-        StringBuffer curVal = new StringBuffer();
+        StringBuilder curVal = new StringBuilder();
         char[] chars = cvsLine.toCharArray();
         for (char ch : chars) {
             if (ch == defaultSeparator) {
                 result.add(curVal.toString());
-                curVal = new StringBuffer();
+                curVal = new StringBuilder();
             } else if (ch == '\r') {
             } else if (ch == '\n') {
                 break;
@@ -43,10 +43,11 @@ public class CSV {
 
     public void importFromCSV() {
         try {
-            File inputFile = new File(fname);
+            File inputFile = new File(fileName);
             Scanner scanner = new Scanner(inputFile);
             while (scanner.hasNext()) {
                 ArrayList<String> line = parseLine(scanner.nextLine());
+                assert line != null;
                 Lists.manageImport(line);
             }
             scanner.close();
@@ -57,10 +58,10 @@ public class CSV {
 
     public void export2CSV() {
         try {
-            File output = new File(fname);
+            File output = new File(fileName);
             try {
                 output.createNewFile();
-                PrintWriter outputWriter = new PrintWriter(fname, StandardCharsets.UTF_8);
+                PrintWriter outputWriter = new PrintWriter(fileName, StandardCharsets.UTF_8);
                 for (int i = 0; i < Lists.getStudents().size(); i++) {
                     outputWriter.write(Lists.getStudents().get(i).getFirstName() + ";" + Lists.getStudents().get(i).getLastName() + ";" + Lists.getStudents().get(i).getGroup());
                     for (int j = 0; j < Lists.getStudents().get(i).getDates().size(); j++)
